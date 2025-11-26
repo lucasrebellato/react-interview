@@ -35,7 +35,6 @@ export default function HomePage() {
       setTodoLists(mappedData);
     } catch (error) {
       toast.error('Error al cargar las listas');
-      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -80,7 +79,6 @@ export default function HomePage() {
       await loadTodoLists();
     } catch (error) {
       toast.error('Error al guardar la lista');
-      console.error(error);
     }
   };
 
@@ -91,7 +89,6 @@ export default function HomePage() {
       await loadTodoLists();
     } catch (error) {
       toast.error('Error al eliminar la lista');
-      console.error(error);
     }
   };
 

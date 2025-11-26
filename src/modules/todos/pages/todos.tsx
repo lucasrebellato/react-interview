@@ -30,7 +30,6 @@ export default function TodoListPage() {
   const allCompleted = todos.length > 0 && todos.every(t => t.isCompleted);
 
   const handleRealtimeCompleted = useCallback((payload: number | number[]) => {
-    console.log('📡 SignalR - TodoCompleted recibido:', payload);
     const ids = Array.isArray(payload) ? payload : [payload];
     setTodos(prev => prev.map(t => (ids.includes(t.id) ? { ...t, isCompleted: true } : t)));
   }, []);
@@ -61,7 +60,6 @@ export default function TodoListPage() {
         return;
       }
       toast.error('Error al cargar las tareas');
-      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -85,7 +83,6 @@ export default function TodoListPage() {
     } catch (error) {
       setTodos(prev => prev.map(t => (t.id === todoId ? { ...t, isCompleted: !checked } : t)));
       toast.error('Error al actualizar la tarea');
-      console.error(error);
     }
   };
 
@@ -123,7 +120,6 @@ export default function TodoListPage() {
       await loadTodos(); 
     } catch (error) {
       toast.error('Error al guardar la tarea');
-      console.error(error);
     }
   };
 
@@ -132,10 +128,9 @@ export default function TodoListPage() {
     try {
       await TodoService.delete(Number(id), todoId);
       toast.success('Tarea eliminada correctamente');
-      await loadTodos(); // fuerza recarga desde backend
+      await loadTodos();
     } catch (error) {
       toast.error('Error al eliminar la tarea');
-      console.error(error);
     }
   };
 
@@ -147,7 +142,6 @@ export default function TodoListPage() {
       toast.success('Marcando todas las tareas como completadas...');
     } catch (error) {
       toast.error('Error al marcar todas como completadas');
-      console.error(error);
     } finally {
       setCompletingAll(false);
     }

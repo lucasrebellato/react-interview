@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast'
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
     primary: {
       main: '#1976d2',
     },
