@@ -26,6 +26,7 @@ export default function TodoListPage() {
   const [listName, setListName] = useState('');
   const [loading, setLoading] = useState(true);
   const [completingAll, setCompletingAll] = useState(false); 
+  const [formValid, setFormValid] = useState(false);
 
   const allCompleted = todos.length > 0 && todos.every(t => t.isCompleted);
 
@@ -197,6 +198,7 @@ export default function TodoListPage() {
         onClose={() => setOpenDialog(false)}
         title={editingItem ? 'Editar Tarea' : 'Nueva Tarea'}
         onSubmit={handleSubmit}
+        submitDisabled={!formValid}
       >
         <GenericForm
           fields={[
@@ -204,6 +206,8 @@ export default function TodoListPage() {
               label: 'Título',
               value: todoTitle,
               onChange: setTodoTitle,
+              required: true,
+              requiredMessage: 'El título es obligatorio',
             },
             {
               label: 'Descripción',
@@ -211,8 +215,12 @@ export default function TodoListPage() {
               onChange: setTodoDescription,
               multiline: true,
               rows: 3,
+              required: true,
+              requiredMessage: 'La descripción es obligatoria',
             },
           ]}
+          onValidityChange={setFormValid}
+          validateOnMount={false}
         />
       </GenericDialog>
     </Container>

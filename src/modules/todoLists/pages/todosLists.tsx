@@ -20,6 +20,7 @@ export default function HomePage() {
   const [todoLists, setTodoLists] = useState<GenericListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [originalLists, setOriginalLists] = useState<any[]>([]);
+  const [formValid, setFormValid] = useState(false);
 
   const loadTodoLists = async () => {
     try {
@@ -127,11 +128,19 @@ export default function HomePage() {
         onClose={() => setOpenDialog(false)}
         title={editingItem ? 'Editar Lista' : 'Nueva Lista'}
         onSubmit={handleSubmit}
+        submitDisabled={!formValid}
       >
         <GenericForm
           fields={[
-            { label: 'Nombre de la lista', value: listName, onChange: setListName },
+            { label: 'Nombre de la lista', 
+              value: listName, 
+              onChange: setListName, 
+              required: true,
+              requiredMessage: 'El nombre de la lista es obligatorio'
+            },
           ]}
+          onValidityChange={setFormValid}
+          validateOnMount={false}
         />
       </GenericDialog>
     </Container>

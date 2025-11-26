@@ -5,7 +5,6 @@ import {
   DialogActions,
   Button,
 } from '@mui/material';
-import { ReactNode } from 'react';
 
 interface GenericDialogProps {
   open: boolean;
@@ -14,7 +13,8 @@ interface GenericDialogProps {
   onSubmit: () => void;
   submitText?: string;
   cancelText?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
+  submitDisabled?: boolean; // nuevo
 }
 
 export default function GenericDialog({
@@ -25,8 +25,10 @@ export default function GenericDialog({
   submitText = 'Guardar',
   cancelText = 'Cancelar',
   children,
+  submitDisabled = false, // nuevo
 }: GenericDialogProps) {
   const handleSubmit = () => {
+    if (submitDisabled) return;
     onSubmit();
     onClose();
   };
@@ -41,7 +43,7 @@ export default function GenericDialog({
         <Button onClick={onClose} color="inherit">
           {cancelText}
         </Button>
-        <Button onClick={handleSubmit} variant="contained">
+        <Button onClick={handleSubmit} variant="contained" disabled={submitDisabled}>
           {submitText}
         </Button>
       </DialogActions>
