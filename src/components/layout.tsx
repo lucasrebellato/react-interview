@@ -1,6 +1,8 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Container, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { SignalRProvider } from '../contexts/SignalRContext';
+import GenericTitle from '../shared/components/genericTitle';
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -21,13 +23,13 @@ export default function Layout() {
               <ArrowBackIcon />
             </IconButton>
           )}
-          <Typography variant="h6">
-            TodoApp
-          </Typography>
+          <GenericTitle text="TodoApp" variant='h6'/>
         </Toolbar>
       </AppBar>
       <Container sx={{ mt: 4 }}>
-        <Outlet />
+        <SignalRProvider>
+          <Outlet />
+        </SignalRProvider>
       </Container>
     </>
   );

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import { useState, useEffect, useCallback } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import toast from 'react-hot-toast';
@@ -7,14 +7,15 @@ import toast from 'react-hot-toast';
 import GenericList, { GenericListItem, ListAction } from '../../../shared/components/genericList';
 import { TodoService } from '../services/todos.service';
 import { TodoListService } from '../../todoLists/services/todoLists.service';
-import { useSignalR } from '../../../hooks/useSignalR';
 import GenericTitle from '../../../shared/components/genericTitle';
 import GenericButton from '../../../shared/components/genericButton';
 import GenericDialog from '../../../shared/components/genericDialog';
 import GenericForm from '../../../shared/components/genericForm';
+import { useSignalRContext } from '../../../contexts/SignalRContext';
 
 
 export default function TodoListPage() {
+  const { onTodoCompleted } = useSignalRContext();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
@@ -28,6 +29,19 @@ export default function TodoListPage() {
 
   const allCompleted = todos.length > 0 && todos.every(t => t.isCompleted);
 
+  const handleRealtimeCompleted = useCallback((payload: number | number[]) => {
+    console.log('📡 SignalR - TodoCompleted recibido:', payload);
+    const ids = Array.isArray(payload) ? payload : [payload];
+    setTodos(prev => prev.map(t => (ids.includes(t.id) ? { ...t, isCompleted: true } : t)));
+  }, []);
+
+
+  useEffect(() => {
+    const unsubscribe = onTodoCompleted(handleRealtimeCompleted);
+    return unsubscribe;
+  }, [onTodoCompleted, handleRealtimeCompleted]);
+
+  
   const loadTodos = async () => {
     if (!id) return;
     try {
@@ -75,14 +89,8 @@ export default function TodoListPage() {
     }
   };
 
-  const handleRealtimeCompleted = useCallback((payload: number | number[]) => {
-    const ids = Array.isArray(payload) ? payload : [payload];
-    setTodos(prev =>
-      prev.map(t => (ids.includes(t.id) ? { ...t, isCompleted: true } : t))
-    );
-  }, []);
+  
 
-  useSignalR(handleRealtimeCompleted);
 
   const handleOpenCreate = () => {
     setEditingItem(null);
@@ -162,7 +170,7 @@ export default function TodoListPage() {
   if (loading) {
     return (
       <Container>
-        <Typography>Cargando...</Typography>
+        <GenericTitle text="Cargando..." />
       </Container>
     );
   }
