@@ -35,23 +35,23 @@ export class TodoService {
     return handleApiResponse<void>(response);
   }
 
-  static async markAsCompleted(todoListId: number, id: number): Promise<void> {
+  static async markAsCompleted(todoListId: number, id: number): Promise<TodoResponseDto> {
     const response = await fetch(`${API_BASE_URL}/api/todolists/${todoListId}/todos/${id}/complete`, {
-      method: 'POST',
+      method: 'PUT',
     });
-    return handleApiResponse<void>(response);
+    return handleApiResponse<TodoResponseDto>(response);
   }
 
-  static async markAsUncompleted(todoListId: number, id: number): Promise<void> {
+  static async markAsUncompleted(todoListId: number, id: number): Promise<TodoResponseDto> {
     const response = await fetch(`${API_BASE_URL}/api/todolists/${todoListId}/todos/${id}/incomplete`, {
-      method: 'POST',
+      method: 'PUT',
     });
-    return handleApiResponse<void>(response);
+    return handleApiResponse<TodoResponseDto>(response);
   }
 
   static async markAllAsCompleted(todoListId: number): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/api/todolists/${todoListId}/todos/complete-all`, {
-      method: 'POST',
+      method: 'PUT',
     });
     return handleApiResponse<void>(response);
   }
