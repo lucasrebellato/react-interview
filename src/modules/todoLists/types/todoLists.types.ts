@@ -11,5 +11,5 @@ export interface CreateTodoListDto {
 }
 
 export interface UpdateTodoListDto {
-  name?: string;
+  name: string;
 }

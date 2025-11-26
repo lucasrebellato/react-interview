@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, Container, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { SignalRProvider } from '../contexts/signalRContext';
+import { SignalRProvider } from '../contexts/SignalRContext';
 import GenericTitle from '../shared/components/genericTitle';
 
 export default function Layout() {
