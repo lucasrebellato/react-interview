@@ -89,9 +89,6 @@ export default function TodoListPage() {
     }
   };
 
-  
-
-
   const handleOpenCreate = () => {
     setEditingItem(null);
     setTodoTitle('');
@@ -207,7 +204,6 @@ export default function TodoListPage() {
         title={editingItem ? 'Editar Tarea' : 'Nueva Tarea'}
         onSubmit={handleSubmit}
       >
-        
         <GenericForm
           fields={[
             {
