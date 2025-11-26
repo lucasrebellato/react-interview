@@ -18,17 +18,17 @@ export function useSignalR(onTodoCompleted: (ids: number | number[]) => void) {
       .build();
 
     connection.onreconnecting(() => {
-      toast.loading('Reconectando al tiempo real...', { id: TOAST_ID });
+      toast.loading('Reconectando al socket...', { id: TOAST_ID });
     });
 
     connection.onreconnected(() => {
-      toast.success('Reconectado al tiempo real', { id: TOAST_ID });
+      toast.success('Reconectado al socket', { id: TOAST_ID });
     });
 
     connection.onclose((err) => {
       if (err) {
         toast.error('Conexión cerrada por error', { id: TOAST_ID });
-        console.error('SignalR cerrado por error:', err);
+        console.error('Socket cerrado por error:', err);
       } else {
         toast('Conexión cerrada', { id: TOAST_ID });
       }
@@ -43,10 +43,10 @@ export function useSignalR(onTodoCompleted: (ids: number | number[]) => void) {
 
     connection
       .start()
-      .then(() => toast.success('Conectado a tiempo real', { id: TOAST_ID }))
+      .then(() => toast.success('Conectado al socket', { id: TOAST_ID }))
       .catch((err) => {
-        toast.error('Error al conectar a tiempo real', { id: TOAST_ID });
-        console.error('Error SignalR start:', err);
+        toast.error('Error al conectar al socket', { id: TOAST_ID });
+        console.error('Error Socket start:', err);
       });
 
     return () => {
