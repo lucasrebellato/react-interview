@@ -11,7 +11,7 @@ import { useSignalR } from '../../../hooks/useSignalR';
 import GenericTitle from '../../../shared/components/genericTitle';
 import GenericButton from '../../../shared/components/genericButton';
 import GenericDialog from '../../../shared/components/genericDialog';
-import GenericForm from '../../../shared/components/GenericForm';
+import GenericForm from '../../../shared/components/genericForm';
 
 
 export default function TodoListPage() {

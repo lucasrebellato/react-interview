@@ -9,7 +9,7 @@ import { TodoListService } from '../services/todoLists.service';
 import GenericButton from '../../../shared/components/genericButton';
 import GenericDialog from '../../../shared/components/genericDialog';
 import GenericTitle from '../../../shared/components/genericTitle';
-import GenericForm from '../../../shared/components/GenericForm';
+import GenericForm from '../../../shared/components/genericForm';
 
 
 export default function HomePage() {

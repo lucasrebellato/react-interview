@@ -22,7 +22,7 @@ export default function Layout() {
             </IconButton>
           )}
           <Typography variant="h6">
-            Todo App
+            TodoApp
           </Typography>
         </Toolbar>
       </AppBar>
